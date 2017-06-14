@@ -21,16 +21,18 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         a0a5333b94264d1fb1e072d63bcb98f9e2981b49
+%global commit         597d2ab9fa41b2db8ce0c6d8be05edb462d3b31d
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
-Version:        0.0.1
+Version:        0.1.0
 Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used to creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
 Source:         https://%{provider_prefix}/archive/%{commit}/%{repo}-%{shortcommit}.tar.gz
+Source1:        storage.conf
+Source2:        storage.conf.5.md
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
@@ -43,7 +45,7 @@ BuildRequires:  gpgme-devel
 BuildRequires:  device-mapper-devel
 BuildRequires:  btrfs-progs-devel
 BuildRequires:  libassuan-devel
-Requires:       runc >= 1.0.0-6
+Requires:       runc >= 1.0.0-7
 Requires:       skopeo-containers
 Provides:       %{repo} = %{version}-%{release}
 
@@ -74,6 +76,10 @@ make all
 
 %install
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
+mkdir -p %{buildroot}%{_sysconfdir}
+install -m0644 %SOURCE1 %{buildroot}%{_sysconfdir}/storage.conf
+mkdir -p %{buildroot}%{_mandir}/man5
+go-md2man -in %SOURCE2 -out %{buildroot}%{_mandir}/man5/storage.conf.1
 
 make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 
@@ -85,10 +91,16 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %doc README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/buildah*
+%{_mandir}/man5/storage*
 %dir %{_datadir}/bash-completion
+%{_sysconfdir}/storage.conf %config(noreplace)
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Fri Apr 14 2017 Dan Walsh <dwalsh@redhat.com> 0.1.0-1.git597d2ab9
+- Release Candidate 1
+- All features have now been implemented.
+
 * Fri Apr 14 2017 Dan Walsh <dwalsh@redhat.com> 0.0.1-1.git7a0a5333
 - First package for Fedora
