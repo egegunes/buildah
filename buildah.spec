@@ -26,13 +26,11 @@
 
 Name:           buildah
 Version:        0.1.0
-Release:        1.git%{shortcommit}%{?dist}
+Release:        2.git%{shortcommit}%{?dist}
 Summary:        A command line tool used to creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
 Source:         https://%{provider_prefix}/archive/%{commit}/%{repo}-%{shortcommit}.tar.gz
-Source1:        storage.conf
-Source2:        storage.conf.5.md
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
@@ -46,7 +44,7 @@ BuildRequires:  device-mapper-devel
 BuildRequires:  btrfs-progs-devel
 BuildRequires:  libassuan-devel
 Requires:       runc >= 1.0.0-7
-Requires:       skopeo-containers
+Requires:       skopeo-containers >= 0.1.20-2
 Provides:       %{repo} = %{version}-%{release}
 
 %description
@@ -76,11 +74,6 @@ make all
 
 %install
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
-mkdir -p %{buildroot}%{_sysconfdir}
-install -m0644 %SOURCE1 %{buildroot}%{_sysconfdir}/storage.conf
-mkdir -p %{buildroot}%{_mandir}/man5
-go-md2man -in %SOURCE2 -out %{buildroot}%{_mandir}/man5/storage.conf.1
-
 make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 
 #define license tag if not already defined
@@ -98,7 +91,7 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
-* Fri Apr 14 2017 Dan Walsh <dwalsh@redhat.com> 0.1.0-1.git597d2ab9
+* Wed Jun 14 2017 Dan Walsh <dwalsh@redhat.com> 0.1.0-2.git597d2ab9
 - Release Candidate 1
 - All features have now been implemented.
 
