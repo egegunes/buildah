@@ -27,7 +27,7 @@
 Name:           buildah
 Version:        0.1.0
 Release:        2.git%{shortcommit}%{?dist}
-Summary:        A command line tool used to creating OCI Images
+Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
 Source:         https://%{provider_prefix}/archive/%{commit}/%{repo}-%{shortcommit}.tar.gz
