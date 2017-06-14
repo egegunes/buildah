@@ -84,9 +84,7 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %doc README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/buildah*
-%{_mandir}/man5/storage*
 %dir %{_datadir}/bash-completion
-%{_sysconfdir}/storage.conf %config(noreplace)
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/buildah
 
