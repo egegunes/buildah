@@ -21,12 +21,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         b37a981500df33dcbeb32325aa6ddd900c42c457
+%global commit         b9b2a8a7ef87833a1db600ed2a3d5295644b2f1c
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
 Version:        0.3
-Release:        1.git%{shortcommit}%{?dist}
+Release:        2.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -90,7 +90,7 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
-* Thu Jul 20 2017 Dan Walsh <dwalsh@redhat.com> 0.3-1.gitb37a981
+* Thu Jul 20 2017 Dan Walsh <dwalsh@redhat.com> 0.3-2.gitb9b2a8a7e
 - Bump for inclusion of OCI 1.0 Runtime and Image Spec
 
 * Tue Jul 18 2017 Dan Walsh <dwalsh@redhat.com> 0.2.0-1.gitac2aad6
