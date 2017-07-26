@@ -26,7 +26,7 @@
 
 Name:           buildah
 Version:        0.3
-Release:        2.git%{shortcommit}%{?dist}
+Release:        3.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -90,6 +90,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-3.gitb9b2a8a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Thu Jul 20 2017 Dan Walsh <dwalsh@redhat.com> 0.3-2.gitb9b2a8a7e
 - Bump for inclusion of OCI 1.0 Runtime and Image Spec
 
