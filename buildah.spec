@@ -21,12 +21,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         b9b2a8a7ef87833a1db600ed2a3d5295644b2f1c
+%global commit         9cbccf88cfc1f6e205af30f7e048eab0949468ad
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
-Version:        0.3
-Release:        5.git%{shortcommit}%{?dist}
+Version:        0.4
+Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -90,6 +90,24 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Fri Sep 22 2017 Dan Walsh <dwalsh@redhat.com> 0.4-1.git9cbccf88c
+-   Add default transport to push if not provided
+-   Avoid trying to print a nil ImageReference
+-   Add authentication to commit and push
+-   Add information on buildah from man page on transports
+-   Remove --transport flag
+-   Run: do not complain about missing volume locations
+-   Add credentials to buildah from
+-   Remove export command
+-   Run(): create the right working directory
+-   Improve "from" behavior with unnamed references
+-   Avoid parsing image metadata for dates and layers
+-   Read the image's creation date from public API
+-   Bump containers/storage and containers/image
+-   Don't panic if an image's ID can't be parsed
+-   Turn on --enable-gc when running gometalinter
+-   rmi: handle truncated image IDs
+
 * Tue Aug 15 2017 Josh Boyer <jwboyer@redhat.com> - 0.3-5.gitb9b2a8a
 - Build for s390x as well
 
