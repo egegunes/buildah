@@ -21,12 +21,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         35afa1c1f4143130668eff755187bac1866a8704
+%global commit         f7dc659e52ba861f12f13c7f98030773a785cbb9
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
 Version:        0.5
-Release:        1.git%{shortcommit}%{?dist}
+Release:        2.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -70,7 +70,7 @@ popd
 mv vendor src
 
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
-make all
+make all GIT_COMMIT=%{shortcommit}
 
 
 %install
@@ -90,6 +90,10 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Wed Nov 08 2017 Dan Walsh <dwalsh@redhat.com> 0.5-2
+-  Bump github.com/vbatts/tar-split
+-  Fixes CVE That could allow a container image to cause a DOS
+
 * Tue Nov 07 2017 Dan Walsh <dwalsh@redhat.com> 0.5-1
 -  Add secrets patch to buildah
 -  Add proper SELinux labeling to buildah run
