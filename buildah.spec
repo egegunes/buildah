@@ -46,6 +46,7 @@ BuildRequires:  btrfs-progs-devel
 BuildRequires:  libassuan-devel
 Requires:       runc >= 1.0.0-7
 Requires:       skopeo-containers >= 0.1.20-2
+Requires:       container-selinux
 Provides:       %{repo} = %{version}-%{release}
 
 %description
