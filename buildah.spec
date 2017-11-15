@@ -21,12 +21,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         f7dc659e52ba861f12f13c7f98030773a785cbb9
+%global commit         de0fb93f3d207817021d62171d85e572312523a9
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
-Version:        0.5
-Release:        2.git%{shortcommit}%{?dist}
+Version:        0.6
+Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -90,6 +90,12 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Wed Nov 15 2017 Dan Walsh <dwalsh@redhat.com> 0.6-1
+- Adds support for converting manifest types when using the dir transport
+- Rework how we do UID resolution in images
+- Bump github.com/vbatts/tar-split
+- Set option.terminal appropriately in run
+
 * Wed Nov 08 2017 Dan Walsh <dwalsh@redhat.com> 0.5-2
 -  Bump github.com/vbatts/tar-split
 -  Fixes CVE That could allow a container image to cause a DOS
