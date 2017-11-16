@@ -21,11 +21,11 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         de0fb93f3d207817021d62171d85e572312523a9
+%global commit         b7e3320fe487ddaa859506df991c365ff2737870
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
-Version:        0.6
+Version:        0.7
 Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
@@ -91,6 +91,10 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Thu Nov 16 2017 Dan Walsh <dwalsh@redhat.com> 0.7-1
+- Ignore errors when trying to read containers buildah.json for loading SELinux reservations
+-     Use credentials from kpod login for buildah
+
 * Wed Nov 15 2017 Dan Walsh <dwalsh@redhat.com> 0.6-1
 - Adds support for converting manifest types when using the dir transport
 - Rework how we do UID resolution in images
