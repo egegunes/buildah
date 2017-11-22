@@ -21,11 +21,11 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         b7e3320fe487ddaa859506df991c365ff2737870
+%global commit         bf40000e72b351067ebae7b77d212a200f9ce051
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
-Version:        0.7
+Version:        0.8
 Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
@@ -91,6 +91,10 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Thu Nov 16 2017 Dan Walsh <dwalsh@redhat.com> 0.8-1
+- Buildah bud was failing on SELinux machines, this fixes this
+- Block access to certain kernel file systems inside of the container
+
 * Thu Nov 16 2017 Dan Walsh <dwalsh@redhat.com> 0.7-1
 - Ignore errors when trying to read containers buildah.json for loading SELinux reservations
 -     Use credentials from kpod login for buildah
