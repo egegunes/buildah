@@ -36,7 +36,6 @@ ExclusiveArch:  x86_64 aarch64 ppc64le s390x
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 BuildRequires:  glib2-devel
-BuildRequires:  ostree-devel
 BuildRequires:  glibc-static
 BuildRequires:  go-md2man
 BuildRequires:  gpgme-devel
@@ -71,7 +70,6 @@ mv vendor src
 
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
 make all GIT_COMMIT=%{shortcommit}
-
 
 %install
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
