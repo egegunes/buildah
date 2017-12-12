@@ -1,0 +1,41 @@
+---
+- name: buildah add
+  command: buildah add nginxc /tmp/buildah/bud/Dockerfile
+
+- name: check buildah add
+  command: ls {{mount.stdout}}/Dockerfile
+
+- name: buildah add to destination
+  command: buildah add nginxc /tmp/buildah/bud/Dockerfile /home
+
+- name: check buildah add to
+  command: ls {{mount.stdout}}/home/Dockerfile
+
+- name: buildah add URL
+  command: buildah add nginxc https://github.com/projectatomic/buildah/raw/master/README.md
+
+- name: check buildah add URL
+  command: ls {{mount.stdout}}/README.md
+
+- name: buildah add URL to destination
+  command: buildah add nginxc https://github.com/projectatomic/buildah/raw/master/README.md /home
+
+- name: check buildah add URL to destination
+  command: ls {{mount.stdout}}/home/README.md
+
+- name: Download buildah README.md
+  get_url:
+    url: https://github.com/projectatomic/buildah/raw/master/README.md
+    dest: /tmp/buildah/
+
+- name: buildah add dir
+  command: buildah add nginxc /tmp
+
+- name: check buildah add dir
+  command: ls {{mount.stdout}}/buildah/README.md
+
+- name: buildah add dir to destination
+  command: buildah add nginxc /tmp /home
+
+- name: check buildah add dir to destination
+  command: ls {{mount.stdout}}/home/buildah/README.md

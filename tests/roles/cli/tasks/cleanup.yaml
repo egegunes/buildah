@@ -1,0 +1,4 @@
+---
+- name: remove buildah containers after testing
+  command: buildah rm busybox nginxc nginxc-2
+  ignore_errors: true

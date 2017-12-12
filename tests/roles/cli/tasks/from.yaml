@@ -1,0 +1,12 @@
+---
+- name: buildah from pull
+  command: buildah from --pull nginx
+
+- name: buildah from pull always
+  command: buildah from --pull-always nginx
+
+- name: buildah from with name
+  command: buildah from --name nginx nginx
+
+- name: clean from testings
+  command: buildah delete nginx nginx-working-container nginx-working-container-2

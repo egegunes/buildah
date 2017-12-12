@@ -1,0 +1,6 @@
+---
+- name: stop docker-distribution service
+  systemd: state=stopped name=docker-distribution
+
+- name: stop httpd service
+  systemd: state=stopped name=httpd

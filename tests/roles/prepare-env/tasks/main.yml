@@ -1,0 +1,41 @@
+---
+- name: install required packages for testings
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - docker
+    - python-docker-py
+    - buildah
+    - docker-distribution
+    - ostree
+    - httpd 
+    - libselinux-python
+
+- name: start docker daemon
+  systemd: state=started name=docker
+
+- name: create /ostree/repo
+  file: path=/ostree/repo state=directory
+
+- name: ensure docker-distribution service is running
+  systemd: state=started name=docker-distribution
+
+- name: creates directory buildah testing
+  file: path=/tmp/buildah/bud state=directory
+
+- name: download Dockerfile 
+  get_url:
+    url: https://github.com/fedora-cloud/Fedora-Dockerfiles/raw/master/nginx/Dockerfile
+    dest: /tmp/buildah/bud/Dockerfile
+
+- name: creates a bud directory in /var/www/html
+  file: path=/var/www/html/bud state=directory
+
+- name: archive dockerfile into httpd directory
+  command: tar zcvf /var/www/html/bud/Dockerfile.tar.gz Dockerfile
+  args:
+    chdir: /tmp/buildah/bud
+
+- name: start httpd service
+  systemd: state=started name=httpd

@@ -1,0 +1,18 @@
+---
+- name: buildah containers
+  shell: buildah containers | grep nginxc
+
+- name: buildah containers -q
+  shell: buildah containers -q | grep -v nginxc
+
+- name: buildah containers -n
+  shell: buildah containers -n | grep -v NAME
+
+- name: buildah containers --notruncate
+  command: buildah containers -- notruncate
+
+- name: buildah containers --all
+  command: buildah containers --all 
+
+- name: buildah containers --json
+  command: buildah containers --json

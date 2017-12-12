@@ -1,0 +1,16 @@
+---
+- name: buildah config workingdir 
+  command: buildah config --workingdir /opt nginxc
+
+- name: get buildah config workingdir
+  command: buildah run nginxc "pwd"
+  register: checkworkingdir
+  failed_when: "'/opt' not in checkworkingdir.stdout"
+
+- name: buildah config env
+  command: buildah config --env foo=bar nginxc
+
+- name: get buildah config env
+  command: buildah run nginxc env
+  register: env
+  failed_when: "'foo=bar' not in env.stdout"

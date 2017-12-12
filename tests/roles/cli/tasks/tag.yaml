@@ -1,0 +1,43 @@
+---
+- name: buildah from --pull busybox
+  command: buildah from busybox
+
+- name: buildah tag by name
+  command: buildah tag busybox busybox1
+
+- name: check busybox1 exists
+  shell: buildah images | grep busybox1
+
+- name: get image id
+  command: buildah images -q busybox1
+  register: busyboxID
+
+- name: buildah tag by ID
+  command: buildah tag {{busyboxID.stdout}} busybox2
+
+- name: check busybox2 exists
+  shell: buildah images | grep busybox2
+
+- name: buildah from tagged image
+  command: buildah from busybox1
+
+- name: mount the container which using tagged image
+  command: buildah mount busybox1-working-container
+
+- name: buildah umount the container
+  command: buildah umount  busybox1-working-container
+
+- name: buildah rm container busybox
+  command: buildah rm busybox-working-container
+
+- name: buildah rm container busybox1
+  command: buildah rm busybox1-working-container
+
+- name: buildah rmi tagged image
+  command: buildah rmi busybox{1..2}
+
+- name: check image busybox is not deleted
+  shell: buildah images | grep busybox 
+
+- name: buildah rmi image busybox
+  command: buildah rmi busybox

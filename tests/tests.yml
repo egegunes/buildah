@@ -1,0 +1,12 @@
+---
+# test buildah
+- hosts: localhost
+  become: true
+  tags:
+    - classic
+  roles:
+    - prepare-env
+    - role: cli
+      tags:
+        - cli
+    - tear-down
