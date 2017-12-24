@@ -21,11 +21,11 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         04ea0791308720d032fdf7f1efb55488ac633351
+%global commit         979c9456744396fe27914d28063fb66dec896744
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
-Version:        0.9
+Version:        0.10
 Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
@@ -88,6 +88,13 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Sat Dec 23 2017 Dan Walsh <dwalsh@redhat.com> 0.10-1
+- Display Config and Manifest as strings
+- Bump containers/image
+- Use configured registries to resolve image names
+- Update to work with newer image library
+- Add --chown option to add/copy commands
+
 * Sat Dec 2 2017 Dan Walsh <dwalsh@redhat.com> 0.9-1
 - Allow push to use the image id
 - Make sure builtin volumes have the correct label
