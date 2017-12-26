@@ -21,12 +21,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         979c9456744396fe27914d28063fb66dec896744
+%global commit         129fb109d55496c8c3b8889ce15ea76e439c697a
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
 Version:        0.10
-Release:        1.git%{shortcommit}%{?dist}
+Release:        2.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -35,7 +35,9 @@ Source:         https://%{provider_prefix}/archive/%{commit}/%{repo}-%{shortcomm
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
+BuildRequires:  git
 BuildRequires:  glib2-devel
+BuildRequires:  ostree-devel
 BuildRequires:  glibc-static
 BuildRequires:  go-md2man
 BuildRequires:  gpgme-devel
@@ -57,7 +59,7 @@ or
 * delete a working container or an image
 
 %prep
-%setup -q -n %{name}-%{commit}
+%autosetup -Sgit -n %{name}-%{commit}
 
 %build
 mkdir _build
@@ -88,6 +90,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Tue Dec 26 2017 Dan Walsh <dwalsh@redhat.com> 0.10-2
+- Fix checkin
+
 * Sat Dec 23 2017 Dan Walsh <dwalsh@redhat.com> 0.10-1
 - Display Config and Manifest as strings
 - Bump containers/image
