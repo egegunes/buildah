@@ -21,12 +21,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         129fb109d55496c8c3b8889ce15ea76e439c697a
+%global commit         6bad262ff123ef15f3fcdb26d1c53a037f973a2d
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           buildah
-Version:        0.10
-Release:        2.git%{shortcommit}%{?dist}
+Version:        0.11
+Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -90,6 +90,14 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/buildah
 
 %changelog
+* Tue Jan 16 2018 Dan Walsh <dwalsh@redhat.com> 0.11-1
+- Add --all to remove containers
+- Add --all functionality to rmi
+- Show ctrid when doing rm -all
+- Ignore sequential duplicate layers when reading v2s1
+- Lots of minor bug fixes
+- Vendor in latest containers/image and containers/storage
+
 * Tue Dec 26 2017 Dan Walsh <dwalsh@redhat.com> 0.10-2
 - Fix checkin
 
