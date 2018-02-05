@@ -1,12 +1,5 @@
-%if 0%{?fedora} || 0%{?rhel} == 6
-%global with_bundled 1
 %global with_debug 1
-%global with_check 1
-%else
-%global with_bundled 0
-%global with_debug 0
-%global with_check 0
-%endif
+%global with_bundled 1
 
 %if 0%{?with_debug}
 %global _dwz_low_mem_die_limit 0
@@ -24,9 +17,9 @@
 %global commit         6bad262ff123ef15f3fcdb26d1c53a037f973a2d
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
-Name:           buildah
+Name:           %{repo}
 Version:        0.11
-Release:        1.git%{shortcommit}%{?dist}
+Release:        2.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -44,13 +37,14 @@ BuildRequires:  gpgme-devel
 BuildRequires:  device-mapper-devel
 BuildRequires:  btrfs-progs-devel
 BuildRequires:  libassuan-devel
-Requires:       runc >= 1.0.0-7
+Requires:       runc >= 1.0.0-17
 Requires:       skopeo-containers >= 0.1.20-2
 Requires:       container-selinux
+Requires:       ostree
 Provides:       %{repo} = %{version}-%{release}
 
 %description
-The buildah package provides a command line tool which can be used to
+The %{name} package provides a command line tool which can be used to
 * create a working container from scratch
 or
 * create a working container from an image as a starting point
@@ -84,12 +78,16 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %license LICENSE
 %doc README.md
 %{_bindir}/%{name}
-%{_mandir}/man1/buildah*
+%{_mandir}/man1/%{name}*
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/buildah
+%{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Mon Feb 05 2018 Lokesh Mandvekar <lsm5@fedoraproject.org> - 0.11-2
+- Resolves: upstream gh#432
+- enable debuginfo for non-fedora packages
+
 * Tue Jan 16 2018 Dan Walsh <dwalsh@redhat.com> 0.11-1
 - Add --all to remove containers
 - Add --all functionality to rmi
