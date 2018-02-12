@@ -14,12 +14,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         6bad262ff123ef15f3fcdb26d1c53a037f973a2d
+%global commit         8badcc2d0229fde5ef3597c1066576fe8a638e7d
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           %{repo}
-Version:        0.11
-Release:        3.git%{shortcommit}%{?dist}
+Version:        0.12
+Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -84,6 +84,29 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Mon Feb 12 2018 Dan Walsh <dwalsh@redhat.com> 0.12-1
+- Added handing for simpler error message for Unknown Dockerfile instructions.
+- Change default certs directory to /etc/containers/certs.dir
+- Vendor in latest containers/image
+- Vendor in latest containers/storage
+- build-using-dockerfile: set the 'author' field for MAINTAINER
+- Return exit code 1 when buildah-rmi fails
+- Trim the image reference to just its name before calling getImageName
+- Touch up rmi -f usage statement
+- Add --format and --filter to buildah containers
+- Add --prune,-p option to rmi command
+- Add authfile param to commit
+- Fix --runtime-flag for buildah run and bud
+- format should override quiet for images
+- Allow all auth params to work with bud
+- Do not overwrite directory permissions on --chown
+- Unescape HTML characters output into the terminal
+- Fix: setting the container name to the image
+- Prompt for un/pwd if not supplied with --creds
+- Make bud be really quiet
+- Return a better error message when failed to resolve an image
+- Update auth tests and fix bud man page
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-3.git6bad262
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
