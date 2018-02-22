@@ -30,6 +30,7 @@ ExclusiveArch:  x86_64 aarch64 ppc64le s390x
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 BuildRequires:  git
 BuildRequires:  glib2-devel
+BuildRequires:  libseccomp-devel
 BuildRequires:  ostree-devel
 BuildRequires:  glibc-static
 BuildRequires:  go-md2man
