@@ -14,11 +14,11 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         8badcc2d0229fde5ef3597c1066576fe8a638e7d
+%global commit         ef0ca9cd2d69e8ca70d07e19386c676ae4985644
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           %{repo}
-Version:        0.12
+Version:        0.13
 Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
@@ -84,6 +84,23 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Thu Feb 22 2018 Dan Walsh <dwalsh@redhat.com> 0.13-1
+- Vendor in latest containers/storage
+-    This fixes a large SELinux bug.  
+- run: do not open /etc/hosts if not needed
+- Add the following flags to buildah bud and from
+            --add-host
+            --cgroup-parent
+            --cpu-period
+            --cpu-quota
+            --cpu-shares
+            --cpuset-cpus
+            --cpuset-mems
+            --memory
+            --memory-swap
+            --security-opt
+            --ulimit
+
 * Mon Feb 12 2018 Dan Walsh <dwalsh@redhat.com> 0.12-1
 - Added handing for simpler error message for Unknown Dockerfile instructions.
 - Change default certs directory to /etc/containers/certs.dir
