@@ -19,13 +19,13 @@
 
 Name:           %{repo}
 Version:        0.13
-Release:        1.git%{shortcommit}%{?dist}
+Release:        2.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
 Source:         https://%{provider_prefix}/archive/%{commit}/%{repo}-%{shortcommit}.tar.gz
 
-ExclusiveArch:  x86_64 aarch64 ppc64le s390x
+ExclusiveArch:  x86_64 %{arm} aarch64 ppc64le s390x
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 BuildRequires:  git
@@ -85,6 +85,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sun Feb 25 2018 Peter Robinson <pbrobinson@fedoraproject.org> 0.13-2
+- Build on ARMv7 too (Fedora supports containers on that arch too)
+
 * Thu Feb 22 2018 Dan Walsh <dwalsh@redhat.com> 0.13-1
 - Vendor in latest containers/storage
 -    This fixes a large SELinux bug.  
