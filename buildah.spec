@@ -14,12 +14,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit         ef0ca9cd2d69e8ca70d07e19386c676ae4985644
+%global commit         d1330a5c4680dd18e1d58015f94cb3530c248eb9
 %global shortcommit    %(c=%{commit}; echo ${c:0:7})
 
 Name:           %{repo}
-Version:        0.13
-Release:        2.git%{shortcommit}%{?dist}
+Version:        0.15
+Release:        1.git%{shortcommit}%{?dist}
 Summary:        A command line tool used for creating OCI Images
 License:        ASL 2.0
 URL:            https://%{provider_prefix}
@@ -85,6 +85,16 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Tue Feb 27 2018 Dan Walsh <dwalsh@redhat.com> 0.15-1
+- Fix handling of buildah run command options
+
+* Mon Feb 26 2018 Dan Walsh <dwalsh@redhat.com> 0.14-1
+- If commonOpts do not exist, we should return rather then segfault
+- Display full error string instead of just status
+- Implement --volume and --shm-size for bud and from
+- Fix secrets patch for buildah bud
+- Fixes the naming issue of blobs and config for the dir transport by removing the .tar extension
+
 * Sun Feb 25 2018 Peter Robinson <pbrobinson@fedoraproject.org> 0.13-2
 - Build on ARMv7 too (Fedora supports containers on that arch too)
 
