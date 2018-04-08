@@ -14,12 +14,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 4743c2e7f132010a01de2d9cf96d10244fced423
+%global commit0 82529cdf31628d4636214d93b8d28a05443fce60
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
 Version: 0.16
-Release: 2.git%{shortcommit0}%{?dist}
+Release: 1.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -84,9 +84,6 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
-* Sun Apr 08 2018 Lokesh Mandvekar <lsm5@fedoraproject.org> - 0.16-2.git4743c2e
-- autobuilt commit 4743c2e
-
 * Wed Apr 4 2018 Dan Walsh <dwalsh@redhat.com> 0.16-1
 -   Add support for shell
 -   Vendor in latest containers/image

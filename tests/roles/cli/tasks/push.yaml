@@ -1,0 +1,60 @@
+---
+- name: pull busybox before push
+  command: buildah from --pull --name busybox busybox
+
+- name: buildah push image to containers-storage
+  command: buildah push docker.io/busybox:latest containers-storage:docker.io/busybox:latest
+
+- name: buildah push image to docker daemon
+  command: buildah push docker.io/busybox:latest docker-daemon:docker.io/buildah/busybox:latest
+
+- name: check buildah/busybox exist in docker daemon
+  command: docker images docker.io/buildah/busybox:latest
+
+- name: buildah push image to docker local registry
+  command: buildah push --tls-verify=false docker.io/busybox:latest docker://localhost:5000/buildah/busybox:latest
+
+- name: create /tmp/buildah/busybox
+  file: path=/tmp/buildah/docker state=directory
+
+- name: rm busybox.tar because docker archive does not support modify
+  file: path=/tmp/buildah/docker/busybox.tar state=absent
+
+- name: buildah push image to docker-archive
+  command: buildah push docker.io/busybox:latest docker-archive:/tmp/buildah/docker/busybox.tar:latest
+
+- name: check docker archive exist
+  file: path=/tmp/buildah/docker/busybox.tar state=file
+
+- name: create /tmp/buildah/dir
+  file: path=/tmp/buildah/dir state=directory
+
+- name: buildah push image to dir
+  command: buildah push docker.io/busybox:latest dir:/tmp/buildah/dir
+
+- name: create /tmp/buildah/oci
+  file: path=/tmp/buildah/oci state=directory
+
+- name: buildah push image to oci
+  command: buildah push docker.io/busybox:latest oci:/tmp/buildah/oci:latest
+
+- name: buildah push image to oci archive
+  command: buildah push docker.io/busybox:latest oci-archive:/tmp/buildah/oci/busybox.tar:latest
+
+- name: check oci archive exist
+  file: path=/tmp/buildah/oci/busybox.tar state=file
+
+- name: init default ostree repo
+  command: ostree --repo=/ostree/repo init
+
+- name: create /tmp/buildah/ostree/repo
+  file: path=/tmp/buildah/ostree/repo state=directory
+
+- name: init tmp ostree repo
+  command: ostree --repo=/tmp/buildah/ostree/repo init
+
+- name: buildah push image to ostree
+  command: buildah push docker.io/busybox:latest ostree:busybox:latest
+
+- name: buildah push image to non-default ostree repo
+  command: buildah push docker.io/busybox:latest ostree:busybox:latest@/tmp/buildah/ostree/repo

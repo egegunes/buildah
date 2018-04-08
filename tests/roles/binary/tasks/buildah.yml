@@ -1,0 +1,15 @@
+---
+- name: pull latest buildah source from github
+  git:
+    repo: https://github.com/projectatomic/buildah
+    dest: "{{ HOME }}/go/src/github.com/projectatomic/buildah"
+
+- name: make binary for buildah
+  command: make
+  args:
+    chdir: "{{ HOME }}/go/src/github.com/projectatomic/buildah"
+
+- name: install buildah to /usr/local/bin
+  command: make install
+  args:
+    chdir: "{{ HOME }}/go/src/github.com/projectatomic/buildah"
