@@ -7,42 +7,41 @@
 %global debug_package   %{nil}
 %endif
 
-%global provider        github
-%global provider_tld    com
-%global project         projectatomic
-%global repo            buildah
+%global provider github
+%global provider_tld com
+%global project projectatomic
+%global repo buildah
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
-%global import_path     %{provider_prefix}
-%global commit         82529cdf31628d4636214d93b8d28a05443fce60
-%global shortcommit    %(c=%{commit}; echo ${c:0:7})
+%global import_path %{provider_prefix}
+%global commit0 82529cdf31628d4636214d93b8d28a05443fce60
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-Name:           %{repo}
-Version:        0.16
-Release:        1.git%{shortcommit}%{?dist}
-Summary:        A command line tool used for creating OCI Images
-License:        ASL 2.0
-URL:            https://%{provider_prefix}
-Source:         https://%{provider_prefix}/archive/%{commit}/%{repo}-%{shortcommit}.tar.gz
+Name: %{repo}
+Version: 0.16
+Release: 1.git%{shortcommit0}%{?dist}
+Summary: A command line tool used for creating OCI Images
+License: ASL 2.0
+URL: https://%{provider_prefix}
+Source: https://%{provider_prefix}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 
-ExclusiveArch:  x86_64 %{arm} aarch64 ppc64le s390x
+ExclusiveArch: x86_64 %{arm} aarch64 ppc64le s390x
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
-BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
-BuildRequires:  git
-BuildRequires:  glib2-devel
-BuildRequires:  libseccomp-devel
-BuildRequires:  ostree-devel
-BuildRequires:  glibc-static
-BuildRequires:  go-md2man
-BuildRequires:  gpgme-devel
-BuildRequires:  device-mapper-devel
-BuildRequires:  btrfs-progs-devel
-BuildRequires:  libassuan-devel
-Requires:       runc >= 1.0.0-17
-Requires:       skopeo-containers >= 0.1.20-2
-Requires:       container-selinux
-Requires:       ostree
-Provides:       %{repo} = %{version}-%{release}
+BuildRequires: %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
+BuildRequires: git
+BuildRequires: glib2-devel
+BuildRequires: libseccomp-devel
+BuildRequires: ostree-devel
+BuildRequires: glibc-static
+BuildRequires: go-md2man
+BuildRequires: gpgme-devel
+BuildRequires: device-mapper-devel
+BuildRequires: btrfs-progs-devel
+BuildRequires: libassuan-devel
+Requires: runc >= 1.0.0-17
+Requires: skopeo-containers >= 0.1.20-2
+Requires: container-selinux
+Requires: ostree
 
 %description
 The %{name} package provides a command line tool which can be used to
@@ -54,7 +53,7 @@ or
 * delete a working container or an image
 
 %prep
-%autosetup -Sgit -n %{name}-%{commit}
+%autosetup -Sgit -n %{name}-%{commit0}
 
 %build
 mkdir _build
@@ -66,7 +65,7 @@ popd
 mv vendor src
 
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
-make all GIT_COMMIT=%{shortcommit}
+make all GIT_COMMIT=%{shortcommit0}
 
 %install
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
