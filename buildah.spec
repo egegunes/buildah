@@ -38,6 +38,7 @@ BuildRequires: gpgme-devel
 BuildRequires: device-mapper-devel
 BuildRequires: btrfs-progs-devel
 BuildRequires: libassuan-devel
+BuildRequires: make
 Requires: runc >= 1.0.0-17
 Requires: skopeo-containers >= 0.1.20-2
 Requires: container-selinux
