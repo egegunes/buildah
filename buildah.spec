@@ -19,7 +19,7 @@
 
 Name: %{repo}
 Version: 0.16
-Release: 10.git%{shortcommit0}%{?dist}
+Release: 11.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -85,6 +85,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Tue Apr 17 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 0.16-11.git45a4b81
+- autobuilt commit 45a4b81
+
 * Tue Apr 17 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 0.16-10.git45a4b81
 - autobuilt commit 45a4b81
 
