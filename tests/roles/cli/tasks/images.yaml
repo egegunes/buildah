@@ -1,0 +1,65 @@
+---
+- name: verify buildah images digests
+  command: buildah images --digests
+  register: digest
+  failed_when: '"sha256" not in digest.stdout'
+
+- name: verify buildah images output json
+  command: buildah images --json
+  register: json
+  failed_when: '"id" not in json.stdout'
+
+- name: verify buildah images noheading
+  command: buildah images --noheading
+  register: head
+  failed_when: '"IMAGE" in head.stdout'
+
+- name: verify buildah images quiet
+  command: buildah images --quiet
+  register: quiet
+  failed_when: '"NAME" in quiet.stdout'
+
+- name: verify buildah images format output
+  command: buildah images --format "{% raw %}{{.ID}} {{.Name}} {{.CreatedAt}} {{.Size}}{% endraw %}"
+  register: format
+
+- lineinfile:
+    path: /tmp/buildah/bud/Dockerfile
+    insertafter: '^FROM'
+    line: 'LABEL project=buildah'
+
+- name: buildah bud with LABEL in Dockerfile
+  command: buildah bud --tls-verify=false -t testing/label /tmp/buildah/bud
+
+- name: verify buildah images filter by label
+  command: buildah images -f "label=project=buildah"
+  register: label
+  failed_when: '"testing/label" not in label.stdout'
+
+- name: buildah bud an image to test filter since/before
+  command: buildah bud -t testing/since /tmp/buildah/bud
+
+- name: verify buildah images filter by since
+  command: buildah images -f "since=label"
+  register: since
+  failed_when: '"testing/label" in since.stdout and "testing/since" in since.stdout'
+
+- name: verify buildah images filter by before
+  command: buildah images -f "before=since"
+  register: before
+  failed_when: '"testing/label" not in before.stdout and "testing/since" in before.stdout'
+
+- name: buildah build an image to test filter dangling
+  command: buildah bud -t testing/label /tmp/buildah/bud
+
+- name: verify buildah images filter by dangling
+  command: buildah images -f "dangling=true" -q
+  register: dangling
+
+- name: remove testing images after buildah images
+  command: buildah rmi {{ item }}
+  with_items:
+    - testing/label
+    - testing/since
+    - "{{ dangling.stdout }}"
+    - localhost:5000/buildah/busybox

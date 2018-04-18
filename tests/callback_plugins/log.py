@@ -24,8 +24,14 @@ except ImportError: # < ansible 2.1
     BASECLASS = DEFAULT_MODULE.CallbackModule
 
 import os, sys
+try:
+    reload  # Python 2.7
+except NameError:
+    try:
+        from importlib import reload  # Python 3.4+
+    except ImportError:
+        from imp import reload
 reload(sys)
-sys.setdefaultencoding('utf-8')
 
 try:
     import simplejson as json
@@ -33,8 +39,8 @@ except ImportError:
     import json
 
 # Fields to reformat output for
-FIELDS = ['cmd', 'command', 'start', 'end', 'delta', 'msg', 'stdout',
-          'stderr', 'results', 'failed', 'reason']
+FIELDS = ['cmd', 'command', 'msg', 'stdout',
+          'stderr', 'failed', 'reason']
 
 
 class CallbackModule(CallbackBase):
@@ -50,7 +56,10 @@ class CallbackModule(CallbackBase):
     def __init__(self, *args, **kwargs):
         # pylint: disable=non-parent-init-called
         BASECLASS.__init__(self, *args, **kwargs)
-        self.artifacts = './artifacts'
+        if os.getenv("TEST_ARTIFACTS") is not None:
+            self.artifacts = os.getenv("TEST_ARTIFACTS")
+        else:
+            self.artifacts = './artifacts'
         self.result_file = os.path.join(self.artifacts, 'test.log')
         if not os.path.exists(self.artifacts):
             os.makedirs(self.artifacts)
@@ -58,27 +67,30 @@ class CallbackModule(CallbackBase):
 
     def human_log(self, data, taskname, status):
         if type(data) == dict:
-            with open('./artifacts/test.log', 'a') as f:
-                f.write("\n\n")
-                f.write("# TASK NAME: %s \n" % taskname)
-                f.write("# STATUS: %s \n\n" % status)
-                f.write("Outputs: \n\n")
-            for field in FIELDS:
-                no_log = data.get('_ansible_no_log', False)
-                if field in data.keys() and data[field] and no_log != True:
-                    output = self._format_output(data[field])
-                    # The following two lines are a hack to make it work with UTF-8 characters
-                    if type(output) != list:
-                        output = output.encode('utf-8', 'replace')
-                    #self._display.display("\n{0}:\n{1}".format(field, output.replace("\\n","\n")), log_only=False)
-                    with open('./artifacts/test.log', 'a') as f:
+            with open(self.result_file, 'a') as f:
+                f.write("################################################################\n")
+                f.write('The status is "%s" for task: %s.\n' % (status, taskname))
+                f.write("Ansible outputs: \n\n")
+                for field in FIELDS:
+                    no_log = data.get('_ansible_no_log', False)
+                    if field in data.keys() and data[field] and no_log != True:
+                        output = self._format_output(data[field], field)
+                        # The following two lines are a hack to make it work with UTF-8 characters
+                        if type(output) != list:
+                            output = output.encode('utf-8', 'replace')
+                        if type(output) == bytes:
+                            output = output.decode('utf-8')
+
                         f.write("{0}: {1}".format(field, output.replace("\\n","\n"))+"\n")
 
 
-    def _format_output(self, output):
+    def _format_output(self, output, field):
         # Strip unicode
-        if type(output) == unicode:
-            output = output.encode(sys.getdefaultencoding(), 'replace')
+        try:
+            if type(output) == unicode:
+                output = output.encode(sys.getdefaultencoding(), 'replace')
+        except NameError:
+            pass
 
         # If output is a dict
         if type(output) == dict:
@@ -94,12 +106,14 @@ class CallbackModule(CallbackBase):
                 if type(item) == dict:
                     for field in FIELDS:
                         if field in item.keys():
-                            copy[field] = self._format_output(item[field])
+                            copy[field] = self._format_output(item[field], field)
                 real_output.append(copy)
             return json.dumps(output, indent=2, sort_keys=True)
 
         # If output is a list of strings
         if type(output) == list and type(output[0]) != dict:
+            if field == "cmd":
+                return ' '.join(output)
             return '\n'.join(output)
 
         # Otherwise it's a string, (or an int, float, etc.) just return it
@@ -110,16 +124,18 @@ class CallbackModule(CallbackBase):
         pass
 
     def v2_runner_on_failed(self, result, ignore_errors=False):
-        self.human_log(result._result, result._task.name, "fail")
+        self.human_log(result._result, result._task.name, "FAIL")
 
     def v2_runner_on_ok(self, result):
-        self.human_log(result._result, result._task.name, "pass")
+        if result._task.name == "":
+            return
+        self.human_log(result._result, result._task.name, "PASS")
 
     def v2_runner_on_skipped(self, result):
         pass
 
     def v2_runner_on_unreachable(self, result):
-        self.human_log(result._result, result._task.name, "unreachable")
+        self.human_log(result._result, result._task.name, "UNREACHABLE")
 
     def v2_runner_on_no_hosts(self, task):
         pass
@@ -128,10 +144,10 @@ class CallbackModule(CallbackBase):
         self.human_log(result._result, result._task.name, "")
 
     def v2_runner_on_async_ok(self, host, result):
-        self.human_log(result._result, result._task.name, "pass")
+        self.human_log(result._result, result._task.name, "PASS")
 
     def v2_runner_on_async_failed(self, result):
-        self.human_log(result._result, result._task.name, "fail")
+        self.human_log(result._result, result._task.name, "FAIL")
 
     def v2_playbook_on_start(self, playbook):
         pass

@@ -1,4 +1,11 @@
 ---
-- name: remove buildah containers after testing
-  command: buildah rm busybox nginxc nginxc-2
-  ignore_errors: true
+- block:
+  - name: remove all buildah containers after testing
+    command: buildah rm -a
+
+  - name: remove all images after testing
+    command: buildah rmi -a
+
+  always:
+    - include_role: 
+        name: tear-down

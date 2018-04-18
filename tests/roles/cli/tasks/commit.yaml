@@ -1,0 +1,59 @@
+---
+- name: buildah commit an image by name
+  command: buildah commit nginxc-2 commitbyname/nginxbyname
+
+- name: check commit images by name is existed
+  command: buildah images commitbyname/nginxbyname
+
+- name: get container ID
+  shell: buildah containers | grep nginxc-2 | awk '{print $1}'
+  register: cid
+
+- name: buildah commit an image by ID
+  command: buildah commit {{ cid.stdout }} commitbyid/nginxbyid
+
+- name: check commit images by ID is existed
+  command: buildah images commitbyid/nginxbyid
+
+- name: buildah from commit image
+  command: buildah from docker.io/commitbyid/nginxbyid
+
+- name: check container nginxbyid exists by inspect
+  command: buildah inspect nginxbyid-working-container
+  
+- name: buildah commit to docker-distribution
+  command: buildah commit --tls-verify=false nginxbyid-working-container docker://localhost:5000/commit/nginx
+
+- name: buildah commit quiet
+  command: buildah commit --quiet --tls-verify=false nginxbyid-working-container docker://localhost:5000/commit/nginx
+  register: quietcommit
+  failed_when: '"Getting" in quietcommit.stdout'
+
+- name: create container from commit images on docker-distribution
+  command: buildah from --tls-verify=false docker://localhost:5000/commit/nginx
+
+- name: buildah commit with rm container
+  command: buildah commit --rm -q --tls-verify=false nginxbyid-working-container docker://localhost:5000/commit/nginx
+
+- name: verify the container is removed after commit
+  command: buildah inspect nginxbyid-working-container
+  register: commitrm
+  failed_when: commitrm.rc != 1
+
+- name: buildah commit format oci
+  command: buildah commit --disable-compression --format=oci nginx-working-container nginxoci
+
+- name: buildah commit format docker
+  command: buildah commit -D -f docker nginx-working-container nginxdocker
+ 
+- name: remove containers from commit images
+  command: buildah rm nginx-working-container
+
+- name: remove images from commit
+  command: buildah rmi {{ item }}
+  with_items:
+    - localhost:5000/commit/nginx
+    - commitbyid/nginxbyid
+    - commitbyname/nginxbyname
+    - nginxoci
+    - nginxdocker

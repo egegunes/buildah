@@ -1,7 +1,4 @@
 ---
-- name: buildah from --pull busybox
-  command: buildah from busybox
-
 - name: buildah tag by name
   command: buildah tag busybox busybox1
 
@@ -19,7 +16,7 @@
   shell: buildah images | grep busybox2
 
 - name: buildah from tagged image
-  command: buildah from busybox1
+  command: buildah from docker.io/busybox1
 
 - name: mount the container which using tagged image
   command: buildah mount busybox1-working-container
@@ -34,7 +31,7 @@
   command: buildah rm busybox1-working-container
 
 - name: buildah rmi tagged image
-  command: buildah rmi busybox{1..2}
+  shell: buildah rmi busybox{1..2}
 
 - name: check image busybox is not deleted
   shell: buildah images | grep busybox 

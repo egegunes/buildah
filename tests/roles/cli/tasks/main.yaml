@@ -1,19 +1,19 @@
 ---
 - block:
-  - name: prepare containers nginxc
-    import_tasks: prepare-containers.yaml
+  - name: buildah version
+    import_tasks: version.yaml
     tags:
-      - nginxc
-
-  - name: buildah containers
-    import_tasks: containers.yaml
-    tags:
-      - ctr
+      - version
 
   - name: buildah from
     import_tasks: from.yaml
     tags:
       - from
+
+  - name: buildah containers
+    import_tasks: containers.yaml
+    tags:
+      - ctr
 
   - name: buildah mount
     import_tasks: mount.yaml
@@ -30,6 +30,16 @@
     tags:
       - config
 
+  - name: buildah commit
+    import_tasks: commit.yaml
+    tags:
+      - commit
+
+  - name: buildah inspect
+    import_tasks: inspect.yaml
+    tags:
+      - inspect
+
   - name: buildah push
     import_tasks: push.yaml
     tags:
@@ -39,6 +49,16 @@
     import_tasks: bud.yaml
     tags:
       - bud
+
+  - name: buildah images
+    import_tasks: images.yaml
+    tags:
+      - images
+
+  - name: buildah run
+    import_tasks: run.yaml
+    tags:
+      - run
 
   always:
   - import_tasks: cleanup.yaml

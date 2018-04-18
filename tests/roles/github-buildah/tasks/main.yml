@@ -1,0 +1,21 @@
+---
+- name: pull latest buildah source from github
+  git:
+    repo: https://github.com/projectatomic/buildah
+    dest: "{{ ansible_env.HOME }}/go/src/github.com/projectatomic/buildah"
+
+- name: make binary for buildah
+  command: make
+  args:
+    chdir: "{{ ansible_env.HOME }}/go/src/github.com/projectatomic/buildah"
+
+- name: install buildah to /usr/local/bin
+  command: make install
+  args:
+    chdir: "{{ ansible_env.HOME }}/go/src/github.com/projectatomic/buildah"
+
+- name: copy buildah to /usr/bin
+  copy: 
+    remote_src: True
+    src: "{{ ansible_env.HOME }}/go/src/github.com/projectatomic/buildah/buildah"
+    dest: /usr/bin/buildah
