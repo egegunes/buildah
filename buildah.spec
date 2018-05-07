@@ -14,12 +14,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 dd02e709d6b7265d6d360c3d0284af0dd5f25668
+%global commit0 1ab80bcd88929a94c52268a5af8443c0055a42cb
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
-Version: 0.16
-Release: 25.git%{shortcommit0}%{?dist}
+Version: 1.0
+Release: 1.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -85,6 +85,28 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Mon May 07 2018 Dan Walsh <dwalsh@redhat.com> 1.0-1
+- Remove buildah run cmd and entrypoint execution
+- Add Files section with registries.conf to pertinent man pages
+- Force "localhost" as a default registry
+- Add --compress, --rm, --squash flags as a noop for bud
+- Add FIPS mode secret to buildah run and bud
+- Add config --comment/--domainname/--history-comment/--hostname
+- Add support for --iidfile to bud and commit
+- Add /bin/sh -c to entrypoint in config
+- buildah images and podman images are listing different sizes
+- Remove tarball as an option from buildah push --help
+- Update entrypoint behaviour to match docker
+- Display imageId after commit
+- config: add support for StopSignal
+- Allow referencing stages as index and names
+- Add multi-stage builds support
+- Vendor in latest imagebuilder, to get mixed case AS support
+- Allow umount to have multi-containers
+- Update buildah push doc
+- buildah bud walks symlinks
+- Imagename is required for commit atm, update manpage
+
 * Mon May 07 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 0.16-25.gitdd02e70
 - autobuilt dd02e70
 
