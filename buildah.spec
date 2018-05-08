@@ -14,12 +14,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 1ab80bcd88929a94c52268a5af8443c0055a42cb
+%global commit0 906ee37d16586f9cc034a9f2c9d3175bc4d17aa9
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
 Version: 1.0
-Release: 1.git%{shortcommit0}%{?dist}
+Release: 2.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -85,6 +85,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Tue May 08 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.0-2.git906ee37
+- autobuilt 906ee37
+
 * Mon May 07 2018 Dan Walsh <dwalsh@redhat.com> 1.0-1
 - Remove buildah run cmd and entrypoint execution
 - Add Files section with registries.conf to pertinent man pages
