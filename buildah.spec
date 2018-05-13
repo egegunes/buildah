@@ -14,12 +14,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 b9a1041b1823b556b0fd9c14928055726cc473e5
+%global commit0 ce8d46762895f11a1d57231b28cbd38c070d12f2
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
 Version: 1.0
-Release: 5.git%{shortcommit0}%{?dist}
+Release: 6.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -85,6 +85,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sun May 13 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.0-6.gitce8d467
+- autobuilt ce8d467
+
 * Sat May 12 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.0-5.gitb9a1041
 - autobuilt b9a1041
 
