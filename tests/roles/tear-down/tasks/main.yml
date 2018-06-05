@@ -4,3 +4,6 @@
 
 - name: stop httpd service
   systemd: state=stopped name=httpd
+
+- name: remove /tmp/buildah
+  file: path=/tmp/buildah state=absent

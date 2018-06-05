@@ -1,0 +1,10 @@
+---
+- name: buildah run with option hostname
+  command: buildah run --hostname example.buildah.com nginxc -- hostname
+  register: hostname
+  failed_when: '"example.buildah.com" not in hostname.stdout'
+
+- name: buildah run with option volume
+  command: buildah run --volume /tmp/buildah/bud:/home nginxc ls /home
+  register: volume
+  failed_when: '"hello" not in volume.stdout'

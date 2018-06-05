@@ -23,19 +23,36 @@
 - name: check buildah add URL to destination
   command: ls {{mount.stdout}}/home/README.md
 
+- name: create /tmp/buildah/addcopy
+  file: path=/tmp/buildah/addcopy state=directory
+
 - name: Download buildah README.md
   get_url:
     url: https://github.com/projectatomic/buildah/raw/master/README.md
-    dest: /tmp/buildah/
+    dest: /tmp/buildah/addcopy/
 
 - name: buildah add dir
-  command: buildah add nginxc /tmp
+  command: buildah add nginxc /tmp/buildah
 
 - name: check buildah add dir
-  command: ls {{mount.stdout}}/buildah/README.md
+  command: ls {{mount.stdout}}/addcopy/README.md
 
 - name: buildah add dir to destination
-  command: buildah add nginxc /tmp /home
+  command: buildah add nginxc /tmp/buildah /home
 
 - name: check buildah add dir to destination
-  command: ls {{mount.stdout}}/home/buildah/README.md
+  command: ls {{mount.stdout}}/home/addcopy/README.md
+
+- name: buildah add a tarball file
+  command: buildah add nginxc /var/www/html/bud/Dockerfile.tar.gz /home
+
+- name: check buildah has added content of tarball to container
+  command: ls {{mount.stdout}}/home/hello
+
+- name: buildah add with option chown
+  command: buildah add --chown bin:bin nginxc /tmp/buildah/bud /home
+
+- name: check user after add with option chown
+  raw: buildah run nginxc -- ls -l /home/hello
+  register: ast
+  failed_when: '"bin" not in ast.stdout'

@@ -1,6 +1,6 @@
 ---
 - name: pull busybox before push
-  command: buildah from --pull --name busybox busybox
+  command: buildah from --pull --name busybox docker.io/busybox
 
 - name: buildah push image to containers-storage
   command: buildah push docker.io/busybox:latest containers-storage:docker.io/busybox:latest
@@ -46,15 +46,20 @@
 
 - name: init default ostree repo
   command: ostree --repo=/ostree/repo init
+  when: not ansible_distribution == "CentOS"
 
 - name: create /tmp/buildah/ostree/repo
   file: path=/tmp/buildah/ostree/repo state=directory
+  when: not ansible_distribution == "CentOS"
 
 - name: init tmp ostree repo
   command: ostree --repo=/tmp/buildah/ostree/repo init
+  when: not ansible_distribution == "CentOS"
 
 - name: buildah push image to ostree
   command: buildah push docker.io/busybox:latest ostree:busybox:latest
+  when: not ansible_distribution == "CentOS"
 
 - name: buildah push image to non-default ostree repo
   command: buildah push docker.io/busybox:latest ostree:busybox:latest@/tmp/buildah/ostree/repo
+  when: not ansible_distribution == "CentOS"

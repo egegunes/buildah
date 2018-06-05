@@ -1,12 +1,23 @@
 ---
-- name: buildah from pull
-  command: buildah from --pull nginx
+- name: remove all containers before pull
+  command: buildah rm --all
 
-- name: buildah from pull always
-  command: buildah from --pull-always nginx
+- name: buildah from without pull
+  command: buildah from --name nginxc docker.io/nginx
 
-- name: buildah from with name
-  command: buildah from --name nginx nginx
+- name: buildah from with pull
+  command: buildah from --pull --name nginxc-2 docker.io/nginx
 
-- name: clean from testings
-  command: buildah delete nginx nginx-working-container nginx-working-container-2
+- name: buildah from with pull always
+  command: buildah from --pull-always docker.io/busybox
+
+- name: remove busybox-working-container
+  command: buildah rm busybox-working-container
+
+- name: remove exist image so it will pull again
+  command: buildah rmi busybox
+
+- name: buildah from with quiet
+  command: buildah from --quiet docker.io/busybox
+  register: quietpull
+  failed_when: '"Getting" in quietpull.stdout'
