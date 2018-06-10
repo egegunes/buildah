@@ -40,7 +40,7 @@ BuildRequires: btrfs-progs-devel
 BuildRequires: libassuan-devel
 BuildRequires: make
 Requires: runc >= 1.0.0-17
-Requires: skopeo-containers >= 0.1.20-2
+Requires: containers-common
 Requires: container-selinux
 Requires: ostree
 
