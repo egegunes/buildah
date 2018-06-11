@@ -14,11 +14,11 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 fbf46d33c4e01199281c7a69e68605ec7d611fd3
+%global commit0 b9983a6b27379b73699754b91be7b8e70649b42c
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
-Version: 1.1
+Version: 1.2
 Release: 1.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
@@ -85,6 +85,10 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Mon Jun 11 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.2-1.gitb9983a6
+- bump to 1.2
+- autobuilt b9983a6
+
 * Sun Jun 10 2018 Dan Walsh <dwalsh@redhat.com> 1.1-1
 - Drop capabilities if running container processes as non root
 - Print Warning message if cmd will not be used based on entrypoint
