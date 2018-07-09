@@ -19,7 +19,7 @@
 
 Name: %{repo}
 Version: 1.2
-Release: 24.git%{shortcommit0}%{?dist}
+Release: 24.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
