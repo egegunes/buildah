@@ -1,5 +1,11 @@
-%global with_debug 1
 %global with_bundled 1
+
+# trouble building debuginfo on f29
+%if 0%{?fedora} > 28
+%global with_debug 0
+%else
+%global with_debug 1
+%endif
 
 %if 0%{?with_debug}
 %global _find_debuginfo_dwz_opts %{nil}
