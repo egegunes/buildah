@@ -14,12 +14,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 3fb864bb93ef18b1defee69ebb410fa0b06ebbed
+%global commit0 a9895bd41d742117f3480a620a466a363e3d3165
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
-Version: 1.2
-Release: 25.dev.git%{shortcommit0}%{?dist}
+Version: 1.3
+Release: 1.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -85,6 +85,10 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Tue Jul 17 2018 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.3-1.dev.gita9895bd
+- bump to v1.3-dev
+- built a9895bd
+
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-25.dev.git3fb864b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
