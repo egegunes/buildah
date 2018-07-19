@@ -26,7 +26,7 @@
 
 Name: %{repo}
 Version: 1.3
-Release: 2.dev.git%{shortcommit0}%{?dist}
+Release: 3.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -49,7 +49,6 @@ BuildRequires: make
 Requires: runc >= 1.0.0-17
 Requires: containers-common
 Requires: container-selinux
-Requires: ostree
 
 %description
 The %{name} package provides a command line tool which can be used to
@@ -92,6 +91,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Thu Jul 19 2018 Dan Walsh <dwalsh@redhat.com> - 1.3-3.dev.git1215b16
+- buildah does not require ostree
+
 * Thu Jul 19 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.3-2.dev.git1215b16
 - autobuilt 1215b16
 
