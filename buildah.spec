@@ -21,12 +21,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 1215b160e86087e09162aedeb6d05ce7e11f22fe
+%global commit0 826733af7feb41df082468dbedc96a0f31626c98
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
 Version: 1.3
-Release: 3.dev.git%{shortcommit0}%{?dist}
+Release: 4.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -91,6 +91,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Fri Jul 20 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.3-4.dev.git826733a
+- autobuilt 826733a
+
 * Thu Jul 19 2018 Dan Walsh <dwalsh@redhat.com> - 1.3-3.dev.git1215b16
 - buildah does not require ostree
 
