@@ -26,7 +26,7 @@
 
 Name: %{repo}
 Version: 1.3
-Release: 4.dev.git%{shortcommit0}%{?dist}
+Release: 5.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -48,7 +48,7 @@ BuildRequires: libassuan-devel
 BuildRequires: make
 Requires: runc >= 1.0.0-17
 Requires: containers-common
-Requires: container-selinux
+Recommends: container-selinux
 
 %description
 The %{name} package provides a command line tool which can be used to
@@ -91,6 +91,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Mon Jul 23 2018 Dan Walsh <dwalsh@redhat.com> - 1.3-5.dev.dev.git826733a
+- Change container-selinux Requires to Recommends
+
 * Fri Jul 20 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.3-4.dev.git826733a
 - autobuilt 826733a
 
