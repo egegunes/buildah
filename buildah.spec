@@ -21,12 +21,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 826733af7feb41df082468dbedc96a0f31626c98
+%global commit0 e5f75394207cf2511f574b388baff39391378ee0
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
 Version: 1.3
-Release: 5.dev.git%{shortcommit0}%{?dist}
+Release: 6.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -91,6 +91,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Wed Jul 25 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.3-6.dev.gite5f7539
+- autobuilt e5f7539
+
 * Mon Jul 23 2018 Dan Walsh <dwalsh@redhat.com> - 1.3-5.dev.dev.git826733a
 - Change container-selinux Requires to Recommends
 
