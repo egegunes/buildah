@@ -26,7 +26,7 @@
 
 Name: %{repo}
 Version: 1.3
-Release: 9.dev.git%{shortcommit0}%{?dist}
+Release: 10.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -91,6 +91,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Tue Jul 31 2018 Florian Weimer <fweimer@redhat.com> - 1.3-10.dev.gitbe03809
+- Rebuild with fixed binutils
+
 * Sun Jul 29 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.3-9.dev.gitbe03809
 - autobuilt be03809
 
