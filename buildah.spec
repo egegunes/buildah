@@ -1,11 +1,5 @@
 %global with_bundled 1
-
-# trouble building debuginfo on f29
-%if 0%{?fedora} > 28
-%global with_debug 0
-%else
 %global with_debug 1
-%endif
 
 %if 0%{?with_debug}
 %global _find_debuginfo_dwz_opts %{nil}
@@ -21,12 +15,12 @@
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 02f54e4b1e57a0f80a6a3cf87ee548550f138df1
+%global commit0 0a7389cbbf316ae93f32e133aada0e8be47ca4e0
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
-Version: 1.3
-Release: 11.dev.git%{shortcommit0}%{?dist}
+Version: 1.4
+Release: 1.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -37,7 +31,7 @@ ExclusiveArch: x86_64 %{arm} aarch64 ppc64le s390x
 BuildRequires: %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 BuildRequires: git
 BuildRequires: glib2-devel
-BuildRequires: libseccomp-devel
+BuildRequires: libseccomp-static
 BuildRequires: ostree-devel
 BuildRequires: glibc-static
 BuildRequires: go-md2man
@@ -72,7 +66,9 @@ popd
 mv vendor src
 
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
-make all GIT_COMMIT=%{shortcommit0}
+export BUILDTAGS='seccomp'
+%gobuild -o %{name} %{import_path}/cmd/%{name}
+%{__make} docs
 
 %install
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
@@ -91,6 +87,10 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sun Aug 12 2018 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.4-1.dev.git0a7389c
+- bump to v1.4-dev
+- built 0a7389c
+
 * Wed Aug 01 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.3-11.dev.git02f54e4
 - autobuilt 02f54e4
 
