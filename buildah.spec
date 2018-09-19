@@ -10,7 +10,7 @@
 
 %global provider github
 %global provider_tld com
-%global project projectatomic
+%global project containers
 %global repo buildah
 # https://github.com/projectatomic/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
