@@ -15,11 +15,11 @@
 # https://github.com/containers/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 0f114e993c1c9af83e7584ef70be252a31f8ee13
+%global commit0 5f95bd9a350a2dcff776914c19192df1cf272b97
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
-Version: 1.7
+Version: 1.6
 Release: 2.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
@@ -87,6 +87,10 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sat Jan 19 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-2.dev.git5f95bd9
+- bump to 1.6
+- autobuilt 5f95bd9
+
 * Fri Jan 18 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.7-2.dev.git0f114e9
 - bump to 1.7
 - autobuilt 0f114e9
@@ -133,34 +137,34 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 * Thu Jan 03 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-20.dev.gite55a9f3
 - autobuilt e55a9f3
 
-* Tue Dec 25 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-19.dev.giteebbba2
+* Tue Dec 25 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd99.dev.giteebbba2
 - autobuilt eebbba2
 
-* Thu Dec 20 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-18.dev.git4674656
+* Thu Dec 20 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd98.dev.git4674656
 - autobuilt 4674656
 
-* Wed Dec 19 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-17.dev.gitdd3dff5
+* Wed Dec 19 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd97.dev.gitdd3dff5
 - autobuilt dd3dff5
 
-* Sun Dec 16 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-16.dev.git96c68db
+* Sun Dec 16 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd96.dev.git96c68db
 - autobuilt 96c68db
 
-* Fri Dec 14 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-15.dev.gitde7f480
+* Fri Dec 14 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd95.dev.gitde7f480
 - autobuilt de7f480
 
-* Wed Dec 12 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-14.dev.git90ea890
+* Wed Dec 12 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd94.dev.git90ea890
 - autobuilt 90ea890
 
-* Mon Dec 10 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-13.dev.gitdd0f4f1
+* Mon Dec 10 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd93.dev.gitdd0f4f1
 - autobuilt dd0f4f1
 
-* Sat Dec 08 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-12.dev.git1e1dc14
+* Sat Dec 08 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd92.dev.git1e1dc14
 - autobuilt 1e1dc14
 
-* Fri Dec 07 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-11.dev.git9c1d273
+* Fri Dec 07 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd91.dev.git9c1d273
 - autobuilt 9c1d273
 
-* Thu Dec 06 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-10.dev.git5cca1d6
+* Thu Dec 06 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-1.nightly.git5f95bd90.dev.git5cca1d6
 - autobuilt 5cca1d6
 
 * Wed Dec 05 2018 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.6-9.dev.git01f9ae2
