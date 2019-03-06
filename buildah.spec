@@ -20,7 +20,7 @@
 
 Name: %{repo}
 Version: 1.8
-Release: 7.dev.git%{shortcommit0}%{?dist}
+Release: 8.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -43,6 +43,10 @@ BuildRequires: make
 Requires: runc >= 1.0.0-17
 Requires: containers-common
 Recommends: container-selinux
+Recommends: slirp4netns >= 0.3-0
+%if 0%{?fedora} > 28
+Recommends: fuse-overlayfs
+%endif
 
 %description
 The %{name} package provides a command line tool which can be used to
@@ -87,6 +91,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Wed Mar 06 2019 Dan Walsh <dwalsh@redhat.com> - 1.8-8.dev.git3afba37
+- Add recommends for fuse-overlay and slirp4netns
+
 * Wed Mar 06 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.8-7.dev.git3afba37
 - autobuilt 3afba37
 
