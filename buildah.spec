@@ -15,12 +15,12 @@
 # https://github.com/containers/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 3afba37c91f7d3c7711e8a3274b34eb361aba48a
+%global commit0 0a8ec97272aee3ba2f5e96d6c66a4cd4979ed1fd
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
 Version: 1.8
-Release: 8.dev.git%{shortcommit0}%{?dist}
+Release: 9.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -91,6 +91,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Thu Mar 07 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.8-9.dev.git0a8ec97
+- autobuilt 0a8ec97
+
 * Wed Mar 06 2019 Dan Walsh <dwalsh@redhat.com> - 1.8-8.dev.git3afba37
 - Add recommends for fuse-overlay and slirp4netns
 
