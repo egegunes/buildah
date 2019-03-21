@@ -20,7 +20,7 @@
 
 Name: %{repo}
 Version: 1.8
-Release: 18.dev.git%{shortcommit0}%{?dist}
+Release: 19.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -70,7 +70,7 @@ popd
 mv vendor src
 
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
-export BUILDTAGS='seccomp'
+export BUILDTAGS='seccomp selinux'
 %gobuild -o %{name} %{import_path}/cmd/%{name}
 %{__make} docs
 
@@ -91,6 +91,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Thu Mar 21 2019 Dan Walsh <dwalsh@redhat.com> - 1.8-19.dev.gitbe0c8d2
+- Complile with SELinux enabled
+
 * Thu Mar 21 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.8-18.dev.gitbe0c8d2
 - autobuilt be0c8d2
 
