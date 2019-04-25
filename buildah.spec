@@ -19,13 +19,13 @@
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
-Epoch: 1
 Version: 1.8
-Release: 0.42.dev.git%{shortcommit0}%{?dist}
+Release: 41.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
 Source: https://%{provider_prefix}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+
 ExclusiveArch: x86_64 %{arm} aarch64 ppc64le s390x
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
 BuildRequires: %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
@@ -91,9 +91,6 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
-* Wed Apr 24 2019 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1:1.8-0.42.dev.gitbdbedfd
-- Resolves: #1702419 - bump Epoch to correct release tag
-
 * Wed Apr 24 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.8-41.dev.gitbdbedfd
 - autobuilt bdbedfd
 
