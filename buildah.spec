@@ -15,12 +15,12 @@
 # https://github.com/containers/buildah
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path %{provider_prefix}
-%global commit0 bdbedfdde59e9abf0c4cbeb403f737c1afe4e753
+%global commit0 ddbd8053fd0a8451588bf5c01667d483adf8e8e1
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
-Version: 1.8
-Release: 41.dev.git%{shortcommit0}%{?dist}
+Version: 1.9.0
+Release: 0.1.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -69,7 +69,7 @@ popd
 
 mv vendor src
 
-export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
+export GOPATH=$(pwd)/_build:$(pwd)
 export BUILDTAGS='seccomp selinux'
 %gobuild -o %{name} %{import_path}/cmd/%{name}
 %{__make} docs
@@ -91,6 +91,10 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sun Apr 28 2019 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.9.0-0.1.dev.gitddbd805
+- bump to v1.9.0-dev
+- update release tag format for unreleased builds
+
 * Wed Apr 24 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.8-41.dev.gitbdbedfd
 - autobuilt bdbedfd
 
