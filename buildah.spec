@@ -15,17 +15,16 @@
 # https://github.com/containers/buildah
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
-%global commit0 7016ce64182820fd928b28660d44e5ee85df5611
+%global commit0 a086ec850a9d43669f930a794d66374604418a60
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
 Version: 1.9.0
-Release: 0.25.dev.git%{shortcommit0}%{?dist}
+Release: 0.26.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
 Source: %{git0}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
-ExclusiveArch: x86_64 %{arm} aarch64 ppc64le s390x
 # If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
 BuildRequires: %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 BuildRequires: git
@@ -90,6 +89,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sun Jun 02 2019 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.9.0-0.26.dev.gita086ec8
+- build for all arches
+
 * Sun Jun 02 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.9.0-0.25.dev.git7016ce6
 - autobuilt 7016ce6
 
