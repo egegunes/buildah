@@ -19,12 +19,12 @@
 # https://github.com/containers/buildah
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
-%global commit0 2da8755d535133c82ea7526e1d54feb47e2356f7
+%global commit0 d172dd9ebe7b2c175ea52e5f5a23605723ecb559
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
 Version: 1.9.0
-Release: 0.30.dev.git%{shortcommit0}%{?dist}
+Release: 0.31.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -96,6 +96,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sun Jun 09 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.9.0-0.31.dev.gitd172dd9
+- autobuilt d172dd9
+
 * Sat Jun 08 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.9.0-0.30.dev.git2da8755
 - autobuilt 2da8755
 
