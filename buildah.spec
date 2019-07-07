@@ -19,12 +19,12 @@
 # https://github.com/containers/buildah
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
-%global commit0 1d11851c2ebd16fb810b3a258229c4b077d30f58
+%global commit0 e160a632b7f571cd4c20d0e1240e47d02f82e9b9
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name: %{repo}
 Version: 1.9.1
-Release: 0.42.dev.git%{shortcommit0}%{?dist}
+Release: 0.43.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -36,7 +36,7 @@ BuildRequires: glib2-devel
 BuildRequires: libseccomp-static
 BuildRequires: ostree-devel
 BuildRequires: glibc-static
-BuildRequires: go-md2man
+BuildRequires: golang-github-cpuguy83-md2man
 BuildRequires: gpgme-devel
 BuildRequires: device-mapper-devel
 BuildRequires: btrfs-progs-devel
@@ -49,9 +49,10 @@ Recommends: container-selinux
 Recommends: slirp4netns >= 0.3-0
 Recommends: fuse-overlayfs
 %else
+#### DO NOT REMOVE - NEEDED FOR CENTOS
 Requires: container-selinux
 Requires: slirp4netns >= 0.3-0
-%endif # fedora
+%endif
 
 %description
 The %{name} package provides a command line tool which can be used to
@@ -64,6 +65,8 @@ or
 
 %prep
 %autosetup -Sgit -n %{name}-%{commit0}
+sed -i 's/GOMD2MAN =/GOMD2MAN ?=/' docs/Makefile
+sed -i '/docs install/d' Makefile
 
 %build
 mkdir _build
@@ -77,11 +80,12 @@ mv vendor src
 export GOPATH=$(pwd)/_build:$(pwd)
 export BUILDTAGS='seccomp selinux'
 %gobuild -o %{name} %{import_path}/cmd/%{name}
-%{__make} docs
+GOMD2MAN=go-md2man %{__make} -C docs
 
 %install
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
 make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
+make DESTDIR=%{buildroot} PREFIX=%{_prefix} -C docs install
 
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
@@ -96,6 +100,11 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sun Jul 07 2019 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.9.1-0.43.dev.gite160a63
+- built e160a63
+- add centos conditionals
+- use new name for go-md2man dep
+
 * Sat Jun 22 2019 Lokesh Mandvekar (Bot) <lsm5+bot@fedoraproject.org> - 1.9.1-0.42.dev.git1d11851
 - autobuilt 1d11851
 
