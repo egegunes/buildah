@@ -18,6 +18,10 @@
 %global commit0 4da1d5df5e66638b5f8007bdb7f39f9cb785f8c9
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
+# Used for comparing with latest upstream tag
+# to decide whether to autobuild (non-rawhide only)
+%global built_tag v1.11.0
+
 Name: %{repo}
 Version: 1.12.0
 Release: 0.6.dev.git%{shortcommit0}%{?dist}
