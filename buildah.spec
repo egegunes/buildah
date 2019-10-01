@@ -24,7 +24,7 @@
 
 Name: %{repo}
 Version: 1.12.0
-Release: 0.25.dev.git%{shortcommit0}%{?dist}
+Release: 0.26.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -42,7 +42,7 @@ BuildRequires: device-mapper-devel
 BuildRequires: btrfs-progs-devel
 BuildRequires: libassuan-devel
 BuildRequires: make
-Requires: runc >= 1.0.0-17
+Requires: crun >= 0.9.1-1
 Requires: containers-common
 %if 0%{?fedora}
 Recommends: container-selinux
@@ -100,6 +100,9 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} -C docs install
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Tue Oct 01 2019 Debarshi Ray <rishi@fedoraproject.org> - 1.12.0-0.26.dev.gitcf933c8
+- Switch to crun for Cgroups v2 support
+
 * Tue Oct 01 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.25.dev.gitcf933c8
 - autobuilt cf933c8
 
