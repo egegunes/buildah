@@ -63,6 +63,20 @@ or
 * save container's root file system layer to create a new image
 * delete a working container or an image
 
+%package tests
+Summary: Tests for %{name}
+
+Requires: %{name} = %{version}-%{release}
+Requires: bats
+Requires: bzip2
+Requires: podman
+Requires: golang
+
+%description tests
+%{summary}
+
+This package contains system tests for %{name}
+
 %prep
 %autosetup -Sgit -n %{name}-%{commit0}
 sed -i 's/GOMD2MAN =/GOMD2MAN ?=/' docs/Makefile
@@ -87,6 +101,10 @@ export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
 make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 make DESTDIR=%{buildroot} PREFIX=%{_prefix} -C docs install
 
+install -d -p %{buildroot}/%{_datadir}/%{name}/test/system
+cp -pav tests/. %{buildroot}/%{_datadir}/%{name}/test/system
+cp imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
+
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
 
@@ -98,6 +116,11 @@ make DESTDIR=%{buildroot} PREFIX=%{_prefix} -C docs install
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/%{name}
+
+%files tests
+%license LICENSE
+%{_bindir}/%{name}-imgtype
+%{_datadir}/%{name}/test
 
 %changelog
 * Tue Oct 15 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.39.dev.git389d49b
