@@ -50,6 +50,7 @@ Recommends: slirp4netns >= 0.3-0
 Recommends: fuse-overlayfs
 %else
 #### DO NOT REMOVE - NEEDED FOR CENTOS
+Requires: libseccomp >= 2.4.1-0
 Requires: container-selinux
 Requires: slirp4netns >= 0.3-0
 %endif
