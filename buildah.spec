@@ -24,7 +24,7 @@
 
 Name: %{repo}
 Version: 1.12.0
-Release: 0.39.dev.git%{shortcommit0}%{?dist}
+Release: 0.40.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -95,6 +95,7 @@ mv vendor src
 export GOPATH=$(pwd)/_build:$(pwd)
 export BUILDTAGS='seccomp selinux'
 %gobuild -o %{name} %{import_path}/cmd/%{name}
+%gobuild -o imgtype %{import_path}/tests/imgtype
 GOMD2MAN=go-md2man %{__make} -C docs
 
 %install
@@ -124,6 +125,9 @@ cp imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 %{_datadir}/%{name}/test
 
 %changelog
+* Wed Oct 16 2019 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.12.0-0.40.dev.git389d49b
+- install imgtype binary
+
 * Tue Oct 15 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.39.dev.git389d49b
 - autobuilt 389d49b
 
