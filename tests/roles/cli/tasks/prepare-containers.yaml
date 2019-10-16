@@ -1,6 +1,0 @@
----
-- name: prepare container nginxc for later testing
-  command: buildah from --pull --name nginxc nginx
-
-- name: prepare container nginxc-2 for later testing
-  command: buildah from --name nginxc-2 nginx

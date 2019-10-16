@@ -1,16 +1,1 @@
----
-# test buildah
-- hosts: localhost
-  become: true
-  tags:
-    - classic
-  roles:
-    - role: prepare-env
-      tags:
-        - env
-    - role: github-runc
-      tags:
-        - github-runc
-    - role: cli
-      tags:
-        - cli
+- import_playbook: test_buildah.yml

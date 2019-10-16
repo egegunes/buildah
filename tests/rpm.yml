@@ -1,9 +1,0 @@
----
-# test buildah
-- hosts: all
-  become: true
-  tags:
-    - classic
-  roles:
-    - prepare-env
-    - cli

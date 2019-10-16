@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  roles:
+    - role: standard-test-basic
+      tags:
+        - classic
+        - container
+      required_packages:
+        - buildah
+        - buildah-tests
+      tests:
+        - root-test:
+            dir: ./
+            run: ./test_buildah.sh
+            timeout: 30m
