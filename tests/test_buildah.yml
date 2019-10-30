@@ -12,4 +12,4 @@
         - root-test:
             dir: ./
             run: ./test_buildah.sh
-            timeout: 30m
+            timeout: 60m
