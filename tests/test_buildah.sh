@@ -12,7 +12,7 @@ echo "Environment:"
 env | grep -v LS_COLORS= | sort | sed -e 's/^/  /'
 
 export BUILDAH_BINARY=/usr/bin/buildah
-export IMGTEST_BINARY=/usr/bin/buildah-imgtest
+export IMGTYPE_BINARY=/usr/bin/buildah-imgtype
 
 ###############################################################################
 # BEGIN setup/teardown
