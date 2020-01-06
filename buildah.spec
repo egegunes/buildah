@@ -15,16 +15,16 @@
 # https://github.com/containers/buildah
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
-%global commit0 ed0a329d9e5a9d27b9ac75f6eac8485f7547b05c
+%global commit0 c42f440f9807e51f79e56fc1f5b4bb501ec8c183
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # Used for comparing with latest upstream tag
 # to decide whether to autobuild (non-rawhide only)
-%global built_tag v1.11.5
+%global built_tag v1.12.0
 
 Name: %{repo}
-Version: 1.12.0
-Release: 0.78.dev.git%{shortcommit0}%{?dist}
+Version: 1.14.0
+Release: 0.3.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -125,6 +125,77 @@ cp imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 %{_datadir}/%{name}/test
 
 %changelog
+* Sat Jan 04 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.14.0-0.3.dev.gitc42f440
+- autobuilt c42f440
+
+* Fri Jan 03 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.14.0-0.2.dev.git8d41b83
+- autobuilt 8d41b83
+
+* Tue Dec 31 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.14.0-0.1.dev.git726e24d
+- bump to 1.14.0
+- autobuilt 726e24d
+
+* Sun Dec 22 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.10.dev.git6941254
+- autobuilt 6941254
+
+* Sun Dec 22 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.9.dev.git41b7852
+- autobuilt 41b7852
+
+* Fri Dec 20 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.8.dev.git9588a82
+- autobuilt 9588a82
+
+* Thu Dec 19 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.7.dev.gite6815a1
+- autobuilt e6815a1
+
+* Thu Dec 19 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.6.dev.git2959a6b
+- autobuilt 2959a6b
+
+* Wed Dec 18 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.5.dev.git188269a
+- autobuilt 188269a
+
+* Wed Dec 18 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.4.dev.git0662a4e
+- autobuilt 0662a4e
+
+* Tue Dec 17 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.3.dev.gitacc7c35
+- autobuilt acc7c35
+
+* Mon Dec 16 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.2.dev.git068b6f5
+- autobuilt 068b6f5
+
+* Fri Dec 13 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.13.0-0.1.dev.gite28c43d
+- bump to 1.13.0
+- autobuilt e28c43d
+
+* Fri Dec 13 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.88.dev.gitdb59421
+- autobuilt db59421
+
+* Wed Dec 11 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.87.dev.git70b101f
+- autobuilt 70b101f
+
+* Wed Dec 11 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.86.dev.gitbc8feee
+- autobuilt bc8feee
+
+* Fri Dec 06 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.85.dev.git8d6869b
+- autobuilt 8d6869b
+
+* Fri Dec 06 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.84.dev.git8fc5b01
+- autobuilt 8fc5b01
+
+* Fri Dec 06 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.83.dev.gitc038827
+- autobuilt c038827
+
+* Fri Dec 06 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.82.dev.gite47145c
+- autobuilt e47145c
+
+* Thu Dec 05 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.81.dev.git2a82d07
+- autobuilt 2a82d07
+
+* Wed Dec 04 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.80.dev.git357d4ae
+- autobuilt 357d4ae
+
+* Wed Dec 04 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.79.dev.gitd55a9f8
+- autobuilt d55a9f8
+
 * Tue Dec 03 2019 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.12.0-0.78.dev.gited0a329
 - autobuilt ed0a329
 
