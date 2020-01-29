@@ -15,7 +15,7 @@
 # https://github.com/containers/buildah
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
-%global commit0 0a063c48a284713431ee87c79ab0a886f61cab20
+%global commit0 82ff48a06647e1c6ac4d24a23cf4a9dabd3e8f93
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # Used for comparing with latest upstream tag
@@ -24,7 +24,7 @@
 
 Name: %{repo}
 Version: 1.14.0
-Release: 0.30.dev.git%{shortcommit0}%{?dist}
+Release: 0.31.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -125,6 +125,9 @@ cp imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 %{_datadir}/%{name}/test
 
 %changelog
+* Wed Jan 29 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.14.0-0.31.dev.git82ff48a
+- autobuilt 82ff48a
+
 * Tue Jan 28 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.14.0-0.30.dev.git0a063c4
 - autobuilt 0a063c4
 
