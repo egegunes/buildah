@@ -1,5 +1,10 @@
 %global with_bundled 1
+
+%if 0%{?fedora}
 %global with_debug 1
+%else
+%global with_debug 0
+%endif
 
 %if 0%{?with_debug}
 %global _find_debuginfo_dwz_opts %{nil}
@@ -8,19 +13,23 @@
 %global debug_package   %{nil}
 %endif
 
-%global provider github
-%global provider_tld com
-%global project containers
-%global repo buildah
+%if ! 0%{?gobuild:1}
+%define gobuild(o:) GO111MODULE=off go build -buildmode pie -compiler gc -tags="rpm_crashtraceback ${BUILDTAGS:-}" -ldflags "${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') -extldflags '-Wl,-z,relro -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld '" -a -v -x %{?**};
+%endif
+
+%define provider github
+%define provider_tld com
+%define project containers
+%define repo buildah
 # https://github.com/containers/buildah
-%global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
-%global git0 https://%{import_path}
-%global commit0 f1cf92bba2345a555a437dc533d420769ecb66b2
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%define import_path %{provider}.%{provider_tld}/%{project}/%{repo}
+%define git0 https://%{import_path}
+%define commit0 f1cf92bba2345a555a437dc533d420769ecb66b2
+%define shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # Used for comparing with latest upstream tag
 # to decide whether to autobuild (non-rawhide only)
-%global built_tag v1.13.2
+%define built_tag v1.13.2
 
 Name: %{repo}
 Version: 1.14.0
@@ -29,22 +38,21 @@ Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
 Source: %{git0}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
-# If go_compiler is not set to 1, there is no virtual provide. Use golang instead.
-BuildRequires: %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
+BuildRequires: golang
 BuildRequires: git
 BuildRequires: glib2-devel
 BuildRequires: libseccomp-static
-BuildRequires: ostree-devel
 BuildRequires: glibc-static
-BuildRequires: golang-github-cpuguy83-md2man
+BuildRequires: go-md2man
 BuildRequires: gpgme-devel
-BuildRequires: device-mapper-devel
-BuildRequires: btrfs-progs-devel
 BuildRequires: libassuan-devel
 BuildRequires: make
 Requires: crun >= 0.10-1
 Requires: containers-common
 %if 0%{?fedora}
+BuildRequires: btrfs-progs-devel
+BuildRequires: device-mapper-devel
+BuildRequires: ostree-devel
 Recommends: container-selinux
 Recommends: slirp4netns >= 0.3-0
 Recommends: fuse-overlayfs
