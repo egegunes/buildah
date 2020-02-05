@@ -41,7 +41,6 @@ Source: %{git0}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 BuildRequires: golang
 BuildRequires: git
 BuildRequires: glib2-devel
-BuildRequires: libseccomp-static
 BuildRequires: glibc-static
 BuildRequires: go-md2man
 BuildRequires: gpgme-devel
@@ -53,11 +52,13 @@ Requires: containers-common
 BuildRequires: btrfs-progs-devel
 BuildRequires: device-mapper-devel
 BuildRequires: ostree-devel
+BuildRequires: libseccomp-static
 Recommends: container-selinux
 Recommends: slirp4netns >= 0.3-0
 Recommends: fuse-overlayfs
 %else
 #### DO NOT REMOVE - NEEDED FOR CENTOS
+BuildRequires: libseccomp-devel
 Requires: libseccomp >= 2.4.1-0
 Requires: container-selinux
 Requires: slirp4netns >= 0.3-0
