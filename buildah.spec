@@ -81,6 +81,7 @@ Requires: bats
 Requires: bzip2
 Requires: podman
 Requires: golang
+Requires: jq
 
 %description tests
 %{summary}
