@@ -32,8 +32,8 @@
 %define built_tag v1.13.2
 
 Name: %{repo}
-Version: 1.14.0
-Release: 0.35.dev.git%{shortcommit0}%{?dist}
+Version: 1.15.0
+Release: 0.1.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -135,6 +135,10 @@ cp imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 %{_datadir}/%{name}/test
 
 %changelog
+* Mon Mar 16 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.15.0-0.1.dev.gitf1cf92b
+- bump to 1.15.0
+- autobuilt d26f437
+
 * Wed Feb 05 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.14.0-0.35.dev.gitf1cf92b
 - autobuilt f1cf92b
 
