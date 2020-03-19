@@ -24,12 +24,12 @@
 # https://github.com/containers/buildah
 %define import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %define git0 https://%{import_path}
-%define commit0 f1cf92bba2345a555a437dc533d420769ecb66b2
+%define commit0 843d15de3e797bd912607d27324d13a9d5c27dfb
 %define shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # Used for comparing with latest upstream tag
 # to decide whether to autobuild (non-rawhide only)
-%define built_tag v1.13.2
+%define built_tag v1.14.3
 
 Name: %{repo}
 Version: 1.15.0
@@ -135,8 +135,8 @@ cp imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 %{_datadir}/%{name}/test
 
 %changelog
-* Thu Mar 19 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.15.0-0.7.dev.gitf1cf92b
-- autobuilt 843d15d
+* Thu Mar 19 2020 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.15.0-0.7.dev.git843d15d
+- use correct commit
 
 * Thu Mar 19 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.15.0-0.6.dev.gitf1cf92b
 - autobuilt 843d15d
