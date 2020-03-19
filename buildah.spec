@@ -33,7 +33,7 @@
 
 Name: %{repo}
 Version: 1.15.0
-Release: 0.6.dev.git%{shortcommit0}%{?dist}
+Release: 0.7.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -135,6 +135,9 @@ cp imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 %{_datadir}/%{name}/test
 
 %changelog
+* Thu Mar 19 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.15.0-0.7.dev.gitf1cf92b
+- autobuilt 843d15d
+
 * Thu Mar 19 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.15.0-0.6.dev.gitf1cf92b
 - autobuilt 843d15d
 
