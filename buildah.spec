@@ -17,15 +17,15 @@
 %define gobuild(o:) GO111MODULE=off go build -buildmode pie -compiler gc -tags="rpm_crashtraceback ${BUILDTAGS:-}" -ldflags "${LDFLAGS:-} -B 0x$(head -c20 /dev/urandom|od -An -tx1|tr -d ' \\n') -extldflags '-Wl,-z,relro -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld '" -a -v -x %{?**};
 %endif
 
-%define provider github
-%define provider_tld com
-%define project containers
-%define repo buildah
+%global provider github
+%global provider_tld com
+%global project containers
+%global repo buildah
 # https://github.com/containers/buildah
-%define import_path %{provider}.%{provider_tld}/%{project}/%{repo}
-%define git0 https://%{import_path}
-%define commit0 843d15de3e797bd912607d27324d13a9d5c27dfb
-%define shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
+%global git0 https://%{import_path}
+%global commit0 843d15de3e797bd912607d27324d13a9d5c27dfb
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # Used for comparing with latest upstream tag
 # to decide whether to autobuild (non-rawhide only)
