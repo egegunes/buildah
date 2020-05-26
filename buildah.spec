@@ -29,7 +29,9 @@
 
 # Used for comparing with latest upstream tag
 # to decide whether to autobuild (non-rawhide only)
-%define built_tag v1.14.8
+%define built_tag v1.14.9
+%define built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%define download_url https://%{import_path}/archive/%{built_tag}.tar.gz
 
 Name: %{repo}
 Version: 1.15.0
@@ -38,6 +40,7 @@ Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
 Source: %{git0}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+BuildRequires: device-mapper-devel
 BuildRequires: golang
 BuildRequires: git
 BuildRequires: glib2-devel
@@ -46,20 +49,21 @@ BuildRequires: go-md2man
 BuildRequires: gpgme-devel
 BuildRequires: libassuan-devel
 BuildRequires: make
+BuildRequires: ostree-devel
 Requires: crun >= 0.10-1
 Requires: containers-common
-%if 0%{?fedora}
+Requires: libseccomp >= 2.4.1-0
+# No btrfs for centos 8
+%if 0%{?fedora} || 0%{?centos} <= 7
 BuildRequires: btrfs-progs-devel
-BuildRequires: device-mapper-devel
-BuildRequires: ostree-devel
+%endif
+%if 0%{?fedora}
 BuildRequires: libseccomp-static
 Recommends: container-selinux
 Recommends: slirp4netns >= 0.3-0
 Recommends: fuse-overlayfs
 %else
-#### DO NOT REMOVE - NEEDED FOR CENTOS
 BuildRequires: libseccomp-devel
-Requires: libseccomp >= 2.4.1-0
 Requires: container-selinux
 Requires: slirp4netns >= 0.3-0
 %endif
@@ -104,6 +108,9 @@ mv vendor src
 
 export GOPATH=$(pwd)/_build:$(pwd)
 export BUILDTAGS='seccomp selinux'
+%if 0%{?centos} >= 8
+export BUILDTAGS+='exclude_graphdriver_btrfs'
+%endif
 %gobuild -o %{name} %{import_path}/cmd/%{name}
 %gobuild -o imgtype %{import_path}/tests/imgtype
 GOMD2MAN=go-md2man %{__make} -C docs
