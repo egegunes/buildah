@@ -35,7 +35,7 @@
 
 Name: %{repo}
 Version: 1.15.0
-Release: 0.66.dev.git%{shortcommit0}%{?dist}
+Release: 0.67.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -142,6 +142,9 @@ cp imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 %{_datadir}/%{name}/test
 
 %changelog
+* Tue May 26 2020 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.15.0-0.67.dev.git2c46b4b
+- update deps for centos
+
 * Tue May 26 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.15.0-0.66.dev.git2c46b4b
 - autobuilt 2c46b4b
 
