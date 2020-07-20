@@ -19,7 +19,7 @@ export IMGTYPE_BINARY=/usr/bin/buildah-imgtype
 
 # Start a registry
 pre_bats_setup() {
-    REGISTRY_FQIN=docker.io/library/registry:2.6
+    REGISTRY_FQIN=docker.io/library/registry:2
 
     AUTHDIR=/tmp/buildah-tests-auth.$$
     mkdir -p $AUTHDIR
@@ -33,8 +33,7 @@ pre_bats_setup() {
     fi
 
     if [ ! -e $AUTHDIR/htpasswd ]; then
-        podman run --rm --entrypoint htpasswd $REGISTRY_FQIN \
-               -Bbn testuser testpassword > $AUTHDIR/htpasswd
+        htpasswd -Bbn testuser testpassword > $AUTHDIR/htpasswd
     fi
 
     podman rm -f registry || true

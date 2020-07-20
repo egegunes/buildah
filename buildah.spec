@@ -89,6 +89,7 @@ Requires: bzip2
 Requires: podman
 Requires: golang
 Requires: jq
+Requires: httpd-tools
 
 %description tests
 %{summary}
