@@ -35,7 +35,7 @@
 
 Name: %{repo}
 Version: 1.16.0
-Release: 0.2.dev.git%{shortcommit0}%{?dist}
+Release: 0.3.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -147,6 +147,9 @@ cp bin/imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 %{_datadir}/%{name}/test
 
 %changelog
+* Thu Sep 03 2020 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.16.0-0.3.dev.gitfce9668
+- tests package requires openssl
+
 * Thu Sep  3 17:11:50 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.16.0-0.2.dev.gitfce9668
 - autobuilt fce9668
 
