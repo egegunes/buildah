@@ -90,6 +90,7 @@ Requires: podman
 Requires: golang
 Requires: jq
 Requires: httpd-tools
+Requires: openssl
 
 %description tests
 %{summary}
