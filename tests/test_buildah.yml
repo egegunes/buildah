@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
+  environment:
+    TMPDIR: /var/tmp
   roles:
     - role: standard-test-basic
       tags:
