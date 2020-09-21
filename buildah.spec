@@ -26,6 +26,8 @@
 %global git0 https://%{import_path}
 %global commit0 678da1d8e9770dce6361ac53bacea56b3383c9ff
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global build_info %(date +%s)
+%global cni_version v0.7.0-alpha1
 
 # Used for comparing with latest upstream tag
 # to decide whether to autobuild (non-rawhide only)
@@ -114,6 +116,7 @@ mv vendor src
 
 export GOPATH=$(pwd)/_build:$(pwd)
 export BUILDTAGS='seccomp selinux'
+export LDFLAGS="-X main.gitCommit=%{commit0} -X main.buildInfo=%{build_info} -X main.cniVersion=%{cni_version}"
 %if 0%{?centos} >= 8
 export BUILDTAGS+=' exclude_graphdriver_btrfs'
 %endif
