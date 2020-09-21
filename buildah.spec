@@ -35,7 +35,7 @@
 
 Name: %{repo}
 Version: 1.17.0
-Release: 0.16.dev.git%{shortcommit0}%{?dist}
+Release: 0.17.dev.git%{shortcommit0}%{?dist}
 Summary: A command line tool used for creating OCI Images
 License: ASL 2.0
 URL: https://%{name}.io
@@ -49,9 +49,7 @@ BuildRequires: go-md2man
 BuildRequires: gpgme-devel
 BuildRequires: libassuan-devel
 BuildRequires: make
-Requires: crun >= 0.10-1
 Requires: containers-common
-Requires: libseccomp >= 2.4.1-0
 # No ostree for centos 7
 %if 0%{?fedora} || 0%{?centos} >= 8
 BuildRequires: ostree-devel
@@ -62,11 +60,14 @@ BuildRequires: btrfs-progs-devel
 %endif
 %if 0%{?fedora}
 BuildRequires: libseccomp-static
+Requires: libseccomp >= 2.4.1-0
+Requires: crun >= 0.10-1
 Recommends: container-selinux
 Recommends: slirp4netns >= 0.3-0
 Recommends: fuse-overlayfs
 %else
 BuildRequires: libseccomp-devel
+Requires: libseccomp
 Requires: container-selinux
 Requires: slirp4netns >= 0.3-0
 %endif
@@ -147,65 +148,68 @@ cp bin/imgtype %{buildroot}/%{_bindir}/%{name}-imgtype
 %{_datadir}/%{name}/test
 
 %changelog
-* Thu Sep 17 18:12:35 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.16.dev.git678da1d
+* Mon Sep 21 2020 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.17.0-0.17.dev.git678da1d
+- adjust centos deps
+
+* Thu Sep 17  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.16.dev.git678da1d
 - autobuilt 678da1d
 
-* Thu Sep 17 16:12:45 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.15.dev.git58541a3
+* Thu Sep 17  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.15.dev.git58541a3
 - autobuilt 58541a3
 
-* Thu Sep 17 13:11:59 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.14.dev.git17bb22f
+* Thu Sep 17  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.14.dev.git17bb22f
 - autobuilt 17bb22f
 
-* Wed Sep 16 12:12:33 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.13.dev.git552cbd3
+* Wed Sep 16  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.13.dev.git552cbd3
 - autobuilt 552cbd3
 
-* Tue Sep 15 22:12:15 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.12.dev.gitd0f43a0
+* Tue Sep 15  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.12.dev.gitd0f43a0
 - autobuilt d0f43a0
 
-* Tue Sep 15 21:12:56 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.11.dev.gitb47ffb9
+* Tue Sep 15  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.11.dev.gitb47ffb9
 - autobuilt b47ffb9
 
-* Fri Sep 11 14:12:12 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.10.dev.git1f8bf4d
+* Fri Sep 11  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.10.dev.git1f8bf4d
 - autobuilt 1f8bf4d
 
-* Thu Sep 10 13:12:18 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.9.dev.git33768fc
+* Thu Sep 10  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.9.dev.git33768fc
 - autobuilt 33768fc
 
-* Wed Sep  9 20:12:26 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.8.dev.gitaa3128e
+* Wed Sep  9  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.8.dev.gitaa3128e
 - autobuilt aa3128e
 
-* Wed Sep  9 12:12:14 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.7.dev.gitefc5ec2
+* Wed Sep  9  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.7.dev.gitefc5ec2
 - autobuilt efc5ec2
 
-* Tue Sep  8 21:11:48 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.6.dev.gitbfe6da5
+* Tue Sep  8  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.6.dev.gitbfe6da5
 - autobuilt bfe6da5
 
-* Tue Sep  8 20:12:10 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.5.dev.git2928303
+* Tue Sep  8  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.5.dev.git2928303
 - autobuilt 2928303
 
-* Tue Sep  8 19:12:25 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.4.dev.git555eb26
+* Tue Sep  8  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.4.dev.git555eb26
 - autobuilt 555eb26
 
-* Tue Sep  8 15:11:43 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.3.dev.git49a5768
+* Tue Sep  8  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.3.dev.git49a5768
 - autobuilt 49a5768
 
-* Mon Sep  7 08:11:53 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.2.dev.gitd83657c
+* Mon Sep  7  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.2.dev.gitd83657c
 - autobuilt d83657c
 
-* Sat Sep  5 11:12:36 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.1.dev.git28d7d44
+* Sat Sep  5  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.17.0-0.1.dev.git28d7d44
 - bump to 1.17.0
 - autobuilt 28d7d44
 
-* Thu Sep  3 21:11:50 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.16.0-0.4.dev.git58e6b4f
+* Thu Sep  3  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.16.0-0.4.dev.git58e6b4f
 - autobuilt 58e6b4f
 
 * Thu Sep 03 2020 Lokesh Mandvekar <lsm5@fedoraproject.org> - 1.16.0-0.3.dev.gitfce9668
 - tests package requires openssl
 
-* Thu Sep  3 17:11:50 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.16.0-0.2.dev.gitfce9668
+* Thu Sep  3  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.16.0-0.2.dev.gitfce9668
 - autobuilt fce9668
 
-* Thu Sep  3 13:05:31 UTC 2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.16.0-0.1.dev.gitac0182c
+* Thu Sep  3  2020 RH Container Bot <rhcontainerbot@fedoraproject.org> - 1.16.0-0.1.dev.gitac0182c
 - bump to 1.16.0
 - autobuilt ac0182c
 
